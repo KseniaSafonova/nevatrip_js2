@@ -1,5 +1,7 @@
 #timeAtoB,
 #timeBtoA,
-#timeAtoBandBack {
+#timeAtoBandBack,
+#list1,
+#list2 {
     display: none;
 }

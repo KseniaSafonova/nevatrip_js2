@@ -70,18 +70,21 @@
 
         <div>
             <div class="times" id="timeBlock1">
+                <p id="list1">Выберите время отправления из А</p>
                 <select id="timeAtoB"></select>
             </div>
             <div class="times" id="timeBlock2">
+                <p id="list2">Выберите время отправления из В</p>
                 <select id="timeBtoA"></select>
             </div>
         </div>
 
-        <div>
+        <p>
             <label for="num">Количество билетов</label>
             <input id="num">
-            <button>Посчитать</button>
-        </div>
+            <button onclick="getPrice()">Посчитать</button>
+        </p>
+        <div id="message"></div>
     </main>
     <script src="main.js"></script>
 </body>
