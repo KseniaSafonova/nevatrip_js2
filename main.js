@@ -1,5 +1,5 @@
-let timesAtoB = ['11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
-let timesBtoA = ['11:45', '12:45', '13:45', '14:45', '15:45', '16:45', '17:45', '18:45', '19:45', '20:45', '21:45', '22:45']
+let timesAtoB = ['выберите время:', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00', '17:00', '18:00', '19:00', '20:00', '21:00', '22:00']
+let timesBtoA = ['выберите время:', '09:45', '10:45', '11:45', '12:45', '13:45', '14:45', '15:45', '16:45', '17:45', '18:45', '19:45', '20:45', '21:45', '22:45']
 
 let timeAtoB = document.getElementById('timeAtoB');
 let timeBtoA = document.getElementById('timeBtoA');
@@ -8,8 +8,6 @@ let block2 = document.getElementById('timeBlock2');
 let list1 = document.getElementById('list1');
 let list2 = document.getElementById('list2');
 let value;
-var timeValueAB;
-var timeValueBA;
 let timeAB;
 let timeBA;
 
@@ -27,8 +25,7 @@ chooseRoute.addEventListener('change', function () {
         list1.style.display = 'block';
         document.getElementById('timeAtoB').innerHTML =
             timesAtoB.map((time) => `
-        <option value='${time}'>${time}</option>
-        `)
+        <option value='${time}'>${time}</option>`)
     }
 
     else if (value == 'fromBtoA') {
@@ -37,9 +34,7 @@ chooseRoute.addEventListener('change', function () {
         list2.style.display = 'block';
         document.getElementById('timeBtoA').innerHTML =
             timesBtoA.map((time) => `
-    <option value='${time}'>${time}</option>
-    `)
-        timeValueBA = this.value;
+        <option value='${time}'>${time}</option>`)
     }
 
     else if (value == 'fromAtoBandBack') {
@@ -48,8 +43,7 @@ chooseRoute.addEventListener('change', function () {
         list1.style.display = 'block';
         document.getElementById('timeAtoB').innerHTML =
             timesAtoB.map((time) => `
-        <option value='${time}'>${time}</option>
-        `);
+        <option value='${time}'>${time}</option>`);
 
         timeAtoB.addEventListener('change', function () {
             let timesBtoAupdate = [];
@@ -64,17 +58,12 @@ chooseRoute.addEventListener('change', function () {
             for (i = 1; i < timesBtoA.length; i++) {
                 secondTime = Number(timesBtoA[i][0] + timesBtoA[i][1])
                 if ((secondTime - firstTime) >= 1) {
-                    timesBtoAupdate.push(secondTime)
+                    timesBtoAupdate.push(secondTime);
                 }
             }
             document.getElementById('timeBtoA').innerHTML =
                 timesBtoAupdate.map((time) => `
-            <option value='${time}:45'>${time}:45</option>
-            `);
-
-            timeBtoA.addEventListener('change', function () {
-                timeValueBA = this.value;
-            })
+            <option value='${time}:45'>${time}:45</option>`);
         })
     }
 });
@@ -92,6 +81,9 @@ function getPrice() {
     let description;
     let sum;
     let duration;
+    let hours;
+    let minutes;
+    let result;
 
     if (value == 'fromAtoB') {
         description = 'из A в B';
@@ -105,21 +97,28 @@ function getPrice() {
         description = 'из B в A';
         sum = 700;
         duration = 50;
+        hours = +timeBA.slice(0, 2) + +1;
+        minutes = (+timeBA.slice(3) + +50) - 60;
+        result = hours + ':' + minutes;
         document.getElementById('message2').innerHTML =
-            `<p>Теплоход отправляется в ${timeBA}, а прибудет в ${(timeBA.replace(timeBA[1], +timeBA[1] + 1)).replace(45, 35)} </p>`
+            `<p>Теплоход отправляется в ${timeBA}, а прибудет в ${result}.</p>`
     }
 
     else {
         description = 'из A в B и обратно в А';
         sum = 1200;
         duration = 100;
+        hours = +timeBA.slice(0, 2) + +1;
+        minutes = (+timeBA.slice(3) + +50) - 60;
+        result = hours + ':' + minutes;
         document.getElementById('message2').innerHTML =
-            `<p> Теплоход отправляется из А в В ${timeAB} и прибудет в ${timeAB.replace('00', 50)}, а из В в А в ${timeBA} и прибудет в ${(timeBA.replace(timeBA[1], +timeBA[1] + 1)).replace(45, 35)}.</p > `
+            `<p> Теплоход отправляется из А в В в ${timeAB} и прибудет в ${timeAB.replace('00', 50)}, 
+            а из В в А в ${timeBA} и прибудет в ${result}.</p > `
     }
 
     document.getElementById('message1').innerHTML =
         `<p> Вы выбрали ${num} билета по маршруту ${description} стоимостью ${sum * num}.</p >
-    <p>Это путешествие займет у вас ${duration} минут.</p>`
+        <p>Это путешествие займет у вас ${duration} минут.</p>`
 }
 
 
