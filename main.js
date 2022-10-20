@@ -54,7 +54,7 @@ chooseRoute.addEventListener('change', function () {
             list2.style.display = 'block';
 
             let secondTime;
-
+            // расчет возможного времени обратного отправления
             for (i = 1; i < timesBtoA.length; i++) {
                 secondTime = Number(timesBtoA[i][0] + timesBtoA[i][1])
                 if ((secondTime - firstTime) >= 1) {
